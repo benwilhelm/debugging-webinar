@@ -10,7 +10,7 @@ describe('/appointments', () => {
   describe('POST /appointments', () => {
     it('should create a new appointment', () => {
       return request(server)
-      .post("/appointments")
+      .post("/api/appointments")
       .send({
         userId: 1,
         startTime: "2020-06-01T08:00:00.000Z",

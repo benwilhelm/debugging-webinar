@@ -10,7 +10,7 @@ describe('/users', function () {
   describe('GET /users/:userId', () => {
     it('should get user object', () => {
       return request(server)
-      .get(`/users/1`)
+      .get(`/api/users/1`)
       .expect(200)
       .then(res => {
         const user = res.body
@@ -21,7 +21,7 @@ describe('/users', function () {
 
     it('should return 404 for unknown user', () => {
       return request(server)
-      .get('/users/404')
+      .get('/api/users/404')
       .expect(404)
     })
   })
@@ -29,7 +29,7 @@ describe('/users', function () {
   describe('GET /users/:userId/availabilities', () => {
     it('should return availabilities for given user', () => {
       return request(server)
-      .get('/users/1/availabilities')
+      .get('/api/users/1/availabilities')
       .expect(200)
       .then(({ body: avails }) => {
         assert.equal(avails.length, 2)

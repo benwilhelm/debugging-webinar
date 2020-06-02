@@ -1,4 +1,6 @@
-server/db/_data.*.json
+# This is a generic Node ignore file.
+# There are additional .gitignore files in the /server and /client directories
+
 
 # Logs
 logs

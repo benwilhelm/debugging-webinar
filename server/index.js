@@ -3,11 +3,11 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development'
 const express = require("express")
 const server = express()
 const PORT = process.env.PORT || 3000
-const routes = require('./routes')
+const api = require('./api')
 const bodyParser = require("body-parser")
 
 server.use(bodyParser.json())
-server.use(routes)
+server.use('/api', api)
 
 // Error handler
 server.use((err, req, res, next) => {
