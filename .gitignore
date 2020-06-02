@@ -1,3 +1,5 @@
+server/db/_data.*.json
+
 # Logs
 logs
 *.log
