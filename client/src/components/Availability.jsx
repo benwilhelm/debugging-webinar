@@ -1,41 +1,41 @@
 import React from 'react'
 import './Availability.css'
+import moment from 'moment'
 
-export default (props) => {
+export default ({ startDay, days}) => {
   return (
     <div className="Availability">
       <div className="row">
-        <Day />
-        <Day />
-        <Day />
-        <Day />
-        <Day />
+        { [...Array(days)].map((x, i) => {
+          const date = moment(startDay).add(i, 'days')
+          return <Day key={i} date={date.format('YYYY-MM-DD')} startTime='9:00' hours={8} />
+        }) }
       </div>
     </div>
   )
 }
 
 
-function Day(props) {
+function Day({date, startTime, hours}) {
+  const [hh, mm] = startTime
+  const dayAndTime = moment(date).hours(hh).minutes(mm)
+
   return (
     <div className="col-sm">
-      <h4>Day</h4>
+      <h4>{dayAndTime.format('ddd, MMM D')}</h4>
       <ul className="list-unstyled">
-        <li className="hour">10am</li>
-        <li className="hour half">&nbsp;</li>
-        <li className="hour">11am</li>
-        <li className="hour unavailable half">&nbsp;</li>
-        <li className="hour unavailable">12pm</li>
-        <li className="hour unavailable half">&nbsp;</li>
-        <li className="hour unavailable">1pm</li>
-        <li className="hour unavailable half">&nbsp;</li>
-        <li className="hour unavailable">2pm</li>
-        <li className="hour half">&nbsp;</li>
-        <li className="hour">3pm</li>
-        <li className="hour half">&nbsp;</li>
-        <li className="hour">4pm</li>
-        <li className="hour half">&nbsp;</li>
+        {[...Array(hours*2)].map((x, i) => {
+          const time = moment(dayAndTime).add(i*30, 'minutes')
+          return <TimeSlot key={time} time={time} />
+        })}
       </ul>
     </div>
   )
+}
+
+function TimeSlot({ time }) {
+  const m = time.minutes()
+  const text = m ? " " : time.format('ha')
+  const className = m ? "hour half" : "hour"
+  return <li className={className}>{ text }</li>
 }
