@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default ({users}) => (
   <div className="CalendarList">
@@ -12,7 +13,7 @@ export default ({users}) => (
 function ListItem({user}) {
   return (
     <li>
-      {user.name}
+      <Link to={`/users/${user.id}`}>{user.name}</Link>
     </li>
   )
 }

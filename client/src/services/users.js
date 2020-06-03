@@ -12,6 +12,12 @@ const UserService = {
     const res = await fetch(`${baseUrl}/${id}`)
     const user = await res.json()
     return user
+  },
+
+  async getAvailability(id, startDate, days) {
+    const res = await fetch(`${baseUrl}/${id}/timeslots?startDate=${startDate}&days=${days}`)
+    const timeslots = await res.json()
+    return timeslots
   }
 
 }

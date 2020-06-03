@@ -9,7 +9,7 @@
 }
 
 .hour.half {
-  border-color: #eee;
+  border-top: 1px dashed #eee;
 }
 
 .hour.half:last-child {
@@ -19,5 +19,6 @@
 .hour.unavailable {
   color: #bbb;
   background-color: #ddd;
+  border-color: #ccc;
   cursor: no-drop;
 }

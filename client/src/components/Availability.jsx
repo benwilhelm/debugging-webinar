@@ -2,13 +2,19 @@ import React from 'react'
 import './Availability.css'
 import moment from 'moment'
 
-export default ({ startDay, days}) => {
+export default ({ startDay, days, availability={} }) => {
   return (
     <div className="Availability">
       <div className="row">
         { [...Array(days)].map((x, i) => {
           const date = moment(startDay).add(i, 'days')
-          return <Day key={i} date={date.format('YYYY-MM-DD')} startTime='9:00' hours={8} />
+          return (
+            <Day key={i}
+             date={date.format('YYYY-MM-DD')}
+             startTime='9:00'
+             hours={8}
+             availability={availability}
+            />)
         }) }
       </div>
     </div>
@@ -16,7 +22,7 @@ export default ({ startDay, days}) => {
 }
 
 
-function Day({date, startTime, hours}) {
+function Day({date, startTime, hours, availability={}}) {
   const [hh, mm] = startTime
   const dayAndTime = moment(date).hours(hh).minutes(mm)
 
@@ -26,16 +32,20 @@ function Day({date, startTime, hours}) {
       <ul className="list-unstyled">
         {[...Array(hours*2)].map((x, i) => {
           const time = moment(dayAndTime).add(i*30, 'minutes')
-          return <TimeSlot key={time} time={time} />
+          const available = availability[time.toISOString()]
+          return <TimeSlot key={time} time={time} available={available} />
         })}
       </ul>
     </div>
   )
 }
 
-function TimeSlot({ time }) {
+function TimeSlot({ time, available=false }) {
   const m = time.minutes()
   const text = m ? " " : time.format('ha')
-  const className = m ? "hour half" : "hour"
-  return <li className={className}>{ text }</li>
+
+  const classNames = ['hour']
+  if (m) classNames.push('half')
+  if (!available) classNames.push('unavailable')
+  return <li className={classNames.join(' ')}>{ text }</li>
 }

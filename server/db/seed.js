@@ -21,8 +21,10 @@ const users = [...Array(NUM_USERS)].map((o, i) => {
 const availabilities = users.map((user) => {
   return [...Array(5)].map((o, i) => ({
     userId: user.id,
-    startTime: moment('2020-06-15T10:00:00.000Z').add(i, 'days'),
-    duration: 180
+    startTime: moment('2020-06-15T10:00:00')
+               .add(i, 'days')
+               .add(faker.random.number({min: -1, max: 1}), 'hours'),
+    duration: faker.random.number({ min: 8, max: 12 }) * 30
   }))
 }).flat()
 

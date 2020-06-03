@@ -40,6 +40,24 @@ describe('/users', function () {
       })
     })
   })
+
+  describe('GET /users/:userId/timeslots', () => {
+    it('should return available time slots for given days', () => {
+      return request(server)
+      .get('/api/users/1/timeslots?startDate=2020-06-05')
+      .expect(200)
+      .then(({ body: timeslots }) => {
+        assert.deepEqual(timeslots, {
+          '2020-06-05T10:00:00.000Z': true,
+          '2020-06-05T10:30:00.000Z': true,
+          '2020-06-05T11:00:00.000Z': true,
+          '2020-06-05T11:30:00.000Z': true,
+          '2020-06-05T12:00:00.000Z': true,
+          '2020-06-05T12:30:00.000Z': true,
+        })
+      })
+    })
+  })
 })
 
 
@@ -49,9 +67,9 @@ function setupDb(db) {
       { id: '1', name: 'User Primo', email: 'primo@example.com'}
     ],
     availabilities: [
-      { userId: '1', startTime: '2020-06-04T10:00:00.000Z' },
-      { userId: '1', startTime: '2020-06-05T10:00:00.000Z' },
-      { userId: '2', startTime: '2020-06-06T10:00:00.000Z' },
+      { userId: '1', startTime: '2020-06-04T10:00:00.000Z', duration: 180 },
+      { userId: '1', startTime: '2020-06-05T10:00:00.000Z', duration: 180 },
+      { userId: '2', startTime: '2020-06-06T10:00:00.000Z', duration: 180 },
     ],
     appointments: []
   })
