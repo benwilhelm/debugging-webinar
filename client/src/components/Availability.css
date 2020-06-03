@@ -1,0 +1,23 @@
+.hour {
+  line-height: 2;
+  border-top: 1px solid #aaa;
+  cursor: pointer;
+}
+
+.hour:hover {
+  background-color: #ffe;
+}
+
+.hour.half {
+  border-color: #ccc;
+}
+
+.hour.half:last-child {
+  border-bottom: 1px solid #aaa;
+}
+
+.hour.unavailable {
+  color: #bbb;
+  background-color: #ddd;
+  cursor: no-drop;
+}

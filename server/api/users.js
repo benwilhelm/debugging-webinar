@@ -14,6 +14,11 @@ router.param('userId', (req, res, next, userId) => {
 })
 
 
+router.get('/', (req, res, next) => {
+  const users = db.get('users').value()
+  res.json(users)
+})
+
 router.get('/:userId', (req, res, next) => {
   res.json(req.user)
 })
