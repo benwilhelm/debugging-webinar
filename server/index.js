@@ -7,6 +7,15 @@ const api = require('./api')
 const bodyParser = require("body-parser")
 
 server.use(bodyParser.json())
+
+// Fake network latency
+server.use((req, res, next) => {
+  const delay = process.env.NODE_ENV === 'development'
+              ? Math.random() * 500
+              : 0
+  setTimeout(next, delay)
+})
+
 server.use('/api', api)
 
 // Error handler

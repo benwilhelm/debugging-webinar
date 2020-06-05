@@ -1,22 +1,15 @@
 const { Router } = require("express")
 const routes = new Router()
+const cors = require('cors')
 
 // CORS whitelisting
-routes.use((req, res, next) => {
-  const whiteList = [
-    "http://localhost:3000",
-    "http://localhost:3001"
-  ]
-
-  if (whiteList.includes(req.headers.origin)) {
-    res.set({
-      "Access-Control-Allow-Origin": req.headers.origin,
-      "Vary": "Origin"
-    })
-  }
-
-  next()
-})
+routes.use(cors({
+    origin: 'http://localhost:3001',
+    //origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    optionsSuccessStatus: 200
+    // some legacy browsers (IE11, various SmartTVs) choke on 204
+}))
 
 routes.use('/appointments', require('./appointments'))
 routes.use('/users', require('./users'))

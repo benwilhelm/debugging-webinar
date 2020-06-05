@@ -1,13 +1,16 @@
 const moment = require('moment')
 const router = require('express').Router()
 const db = require('../db')
+const { authenticateApi } = require('../auth').middleware
+
+router.use(authenticateApi)
 
 router.param('userId', (req, res, next, userId) => {
   try {
     const user = db.get('users').getById(userId).value()
     if (!user) return res.status(404).send('Not Found')
 
-    req.user = user
+    req.queriedUser = user
     next()
   } catch(err) {
     next(err)
@@ -21,7 +24,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:userId', (req, res, next) => {
-  res.json(req.user)
+  res.json(req.queriedUser)
 })
 
 

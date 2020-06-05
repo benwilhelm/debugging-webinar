@@ -11,7 +11,8 @@ export default (props) => {
 
   const [ availability, setAvailability ] = useState({})
   useEffect(() => {
-    (async function getAvailability() {
+    setAvailability({})
+    ;(async function getAvailability() {
       const availability = await UserService.getAvailability(userId, startDay, numDays)
       setAvailability(availability)
     })()

@@ -11,6 +11,7 @@ describe('/users', function () {
     it('should get user object', () => {
       return request(server)
       .get(`/api/users/1`)
+      .auth('primo@example.com', 'foo')
       .expect(200)
       .then(res => {
         const user = res.body
@@ -19,9 +20,16 @@ describe('/users', function () {
       })
     })
 
+    it('should return 401 with no auth', () => {
+      return request(server)
+      .get('/api/users/1')
+      .expect(401)
+    })
+
     it('should return 404 for unknown user', () => {
       return request(server)
       .get('/api/users/404')
+      .auth('primo@example.com', 'foo')
       .expect(404)
     })
   })
@@ -30,6 +38,7 @@ describe('/users', function () {
     it('should return availabilities for given user', () => {
       return request(server)
       .get('/api/users/1/availabilities')
+      .auth('primo@example.com', 'foo')
       .expect(200)
       .then(({ body: avails }) => {
         assert.equal(avails.length, 2)
@@ -45,6 +54,7 @@ describe('/users', function () {
     it('should return available time slots for given days', () => {
       return request(server)
       .get('/api/users/1/timeslots?startDate=2020-06-05')
+      .auth('primo@example.com', 'foo')
       .expect(200)
       .then(({ body: timeslots }) => {
         assert.deepEqual(timeslots, {
@@ -64,7 +74,8 @@ describe('/users', function () {
 function setupDb(db) {
   db.setState({
     users: [
-      { id: '1', name: 'User Primo', email: 'primo@example.com'}
+      { id: '1', name: 'User Primo', email: 'primo@example.com'},
+      { id: '2', name: 'User Secondo', email: 'secondo@example.com'}
     ],
     availabilities: [
       { userId: '1', startTime: '2020-06-04T10:00:00.000Z', duration: 180 },
