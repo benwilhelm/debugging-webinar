@@ -6,18 +6,24 @@ import CalendarList from './CalendarList'
 export default (props) => {
 
   const [ users, setUsers ] = useState([])
+  const [ currentUser, setCurrentUser ] = useState({})
+
   useEffect(() => {
     async function fetchData() {
-      const currentUser = AuthService.getCurrentUser()
       const fetchedUsers = await UserService.getAll()
 
-      // don't list myself in the calendars list
+      // don't list currentUser in the calendars list
+      const currentUser = AuthService.getCurrentUser()
+      setCurrentUser(currentUser)
       setUsers(fetchedUsers.filter(
         ({ email }) => email !== currentUser.email
       ))
+
     }
     fetchData()
   }, [])
 
-  return <CalendarList users={users} />
+
+
+  return <CalendarList users={users} currentUser={currentUser} />
 }

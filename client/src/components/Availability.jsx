@@ -5,6 +5,7 @@ import moment from 'moment'
 export default ({ startDay, days, availability={} }) => {
   return (
     <div className="Availability">
+
       <div className="row">
         { [...Array(days)].map((x, i) => {
           const date = moment(startDay).add(i, 'days')

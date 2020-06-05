@@ -1,19 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
+import './CalendarList.css'
 
-export default ({users}) => (
+export default ({users, currentUser}) => (
   <div className="CalendarList">
-    <h2 className="h3">Available Calendars</h2>
+    <h2 className="h3">Logged in as</h2>
+    <LinkToCalendar user={currentUser} />
+    <h2 className="h3 mt-4">Available Calendars</h2>
     <ul className='list-unstyled'>
-      {users.map(user => <ListItem key={user.id} user={user} />)}
+      {users.map(user => <li key={user.id}><LinkToCalendar user={user} /></li>)}
     </ul>
   </div>
 )
 
-function ListItem({user}) {
+function LinkToCalendar({user}) {
   return (
-    <li>
-      <Link to={`/users/${user.id}`}>{user.name}</Link>
-    </li>
+    <NavLink className='calendar-link' to={`/users/${user.id}`}>
+      {user.name}
+    </NavLink>
   )
 }

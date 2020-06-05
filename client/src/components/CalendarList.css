@@ -1,0 +1,8 @@
+a.calendar-link {
+  display: block;
+}
+
+a.calendar-link.active {
+  background-color: #007bff;
+  color: #fff;
+}
