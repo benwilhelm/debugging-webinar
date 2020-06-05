@@ -7,6 +7,15 @@ const currentUser = {
 const AuthService = {
   getCurrentUser() {
     return (currentUser)
+  },
+
+  getAuthHeader() {
+    const { email } = this.getCurrentUser()
+    const str = `${email}:---`
+    const encoded = new Buffer(str).toString('base64')
+    return {
+      "Authorization": `Basic ${encoded}`
+    }
   }
 }
 

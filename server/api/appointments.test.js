@@ -26,16 +26,17 @@ describe('/appointments', () => {
       .post("/api/appointments")
       .auth('primo@example.com', 'dunmatter')
       .send({
-        userId: 1,
+        userId: '1',
         startTime: "2020-06-01T08:00:00.000Z",
-        duration: 30,
-        name: "Test Appointment"
+        calendarId: '2'
       })
       .expect(200)
       .then(res => {
-        assert(res.body.id, "Id should be generated")
-        assert.equal(res.body.name, "Test Appointment")
-        // assert.equal(res.body.startTime)
+        const appt = res.body
+        assert(appt.id, "Id should be generated")
+        assert.equal(appt.startTime, "2020-06-01T08:00:00.000Z")
+        assert.equal(appt.userId, '1')
+        assert.equal(appt.calendarId, '2')
       })
     })
   })
@@ -45,7 +46,8 @@ describe('/appointments', () => {
 function setupDb(db) {
   db.setState({
     users: [
-      { id: '1', name: 'User Primo', email: 'primo@example.com'}
+      { id: '1', name: 'User Primo', email: 'primo@example.com'},
+      { id: '2', name: 'User Secondo', email: 'secondo@example.com'}
     ],
     availabilities: [],
     appointments: []

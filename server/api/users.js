@@ -36,6 +36,14 @@ router.get('/:userId/availabilities', (req, res, next) => {
   res.json(avails)
 })
 
+router.get('/:userId/appointments', (req, res, next) => {
+  const appts = db.get('appointments')
+                  .filter({ userId: req.user.id }) // currently authenticated user
+                  .sortBy('startTime')
+                  .value()
+  res.json(appts)
+})
+
 router.get('/:userId/timeslots', (req, res, next) => {
   const startDate = req.query.startDate ? moment(req.query.startDate) : moment()
   const days = req.query.days ? +req.query.days : 1

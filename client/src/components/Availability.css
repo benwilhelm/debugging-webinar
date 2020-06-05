@@ -1,4 +1,10 @@
+.day--date {
+  font-weight: bold;
+}
+
 .hour {
+  display: flex;
+  overflow: hidden;
   height: 2em;
   border-top: 1px solid #aaa;
   cursor: pointer;
@@ -21,4 +27,17 @@
   background-color: #ddd;
   border-color: #ccc;
   cursor: no-drop;
+}
+
+.timeslot--time {
+  font-size: small;
+  font-weight: bold;
+  color: #999;
+  width: 3.5em;
+}
+
+.timeslot--appointment {
+  font-size: small;
+  white-space: nowrap;
+  padding-top: .4em;
 }
