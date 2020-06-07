@@ -3,9 +3,11 @@ const PORT = process.env.PORT || 3000
 
 const express = require("express")
 const server = express()
+const morgan = require('morgan')
 const api = require('./api')
 const bodyParser = require("body-parser")
 
+server.use(morgan('dev'))
 server.use(bodyParser.json())
 
 // Fake network latency
