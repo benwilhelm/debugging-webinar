@@ -24,7 +24,7 @@ function NewAppointmentModal({ appointment, closeModal, saveAppointment }) {
           <div className="modal-body">
             <p>
               Book a new appointment with <strong>{appointment.name}</strong> on<br/>
-              on <strong>{startTime.format("dddd, MMMM D")}</strong> at <strong>{startTime.format("H:mma")}</strong>?
+              on <strong>{startTime.format("dddd, MMMM D")}</strong> at <strong>{startTime.format("h:mma")}</strong>?
             </p>
           </div>
           <div className="modal-footer">
